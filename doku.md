@@ -70,7 +70,13 @@ Er wird auch als Rückgabetyp für `strcspn`, `strlen`, `strspn` und `strxfrm` v
 
 ### a)
 
-Mehrstufige Arrays sind durch Zeiger auf Zeiger realisiert und mehrdimensionale Arrays sind als eindimensionales Array realisierbar.
+| Mehrstufige Arrays                                                                      | Mehrdimensionale Arrays                      |
+| --------------------------------------------------------------------------------------- | -------------------------------------------- |
+| Bestehen aus Zeigern auf ein Zeigerarray                                                | Nur Heap Allokation möglich                  |
+| Beliebige Dimensionen pro Zeiger möglich, d.h. Unterschiedliche Allokationslänge        | Alle haben gleiche Länge                     |
+| Zusatzaufwand für individuelle Allokationen                                             | Abbildung auf eindimensionales Array möglich |
+| Beispiel: <br />`Heap: int *ptr_array[3] = {0};` <br />`Stack: int **ptr = &ptr_array;` |                                              |
+| Mehrstufige Arrays durch Zeiger auf Zeiger realisiert                                   |                                              |
 
 #### Mehrstufige Arrays
 
@@ -84,3 +90,11 @@ Mehrstufige Arrays sind durch Zeiger auf Zeiger realisiert und mehrdimensionale 
 - Spalten und Zeilen müssen immer die gleiche Größe haben (Nachteil)
 
 ### b)
+
+#### Gleichung: Index zu Punkt
+
+$$i = (x + y *size\_x + z* size\_x * size\_y); $$
+
+#### Gleichung: Punkt zu Index
+
+$$(x,y,z)=i\mod  size\_x, \frac{i}{size\_x}\mod size\_x, \frac{i}{size\_x*size\_y} $$
