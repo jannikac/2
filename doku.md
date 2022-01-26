@@ -4,7 +4,7 @@
 
 ### a)
 
-Das Ergebnis der Addition auf einen Zeiger verschiebt den Zeiger um den Integer-Wert. Falls das Ziel des Zeigers ungültig ist, entsteht undefiniertes Verhalten.
+Das Ergebnis der Addition auf einen Zeiger verschiebt den Zeiger um den Integer-Wert. Falls das Ziel des Zeigers ungültig ist, entsteht undefiniertes Verhalten. Bei der Addition wird die Größe des Typs hinter dem Zeiger mit dem addierten Wert multipliziert, um eine korrekte Verschiebung zu garantieren.
 
 ### b)
 
@@ -36,6 +36,20 @@ In Zeile 2 wird Speicher mit der Größe für 4 Integer zugewiesen und `iptr` is
 
 In Zeile 2 wird ein Integer Array mit der Größe 10 auf dem Stack erstellt. In Zeile 3 wird ein Zeiger `p` auf das Array erstellt. Das `free` in Zeile 4 ist nicht nötig, da das Array auf dem Stack liegt und der Speicher automatisch freigegeben wird.
 
+### d)
+
+`unsigned integral type`
+
+Alias eines der grundlegenden Ganzzahltypen ohne Vorzeichen.
+
+Es handelt sich um einen Typ, der die Größe eines beliebigen Objekts in Bytes darstellen kann: `size_t` ist der vom `sizeof`-Operator zurückgegebene Typ und wird in der Standardbibliothek häufig zur Darstellung von Größen und Zählungen verwendet.
+
+In `<cstring>` wird er als Typ des Parameters `num` in den Funktionen `memchr`, `memcmp`, `memcpy`, `memmove`, `memset`, `strncat`, `strncmp`, `strncpy` und `strxfrm` verwendet, die in allen Fällen die maximale Anzahl von Bytes oder Zeichen angeben, die die Funktion beeinflussen soll.
+
+Er wird auch als Rückgabetyp für `strcspn`, `strlen`, `strspn` und `strxfrm` verwendet, um Größen und Längen zurückzugeben.
+
+Die Größe von `size_t` ist nicht fest definiert. Die Größe ist so festgelegt, dass `size_t` gerade so das größte Objekt, welches auf einer Plattform möglich ist abspeichern kann. Da `size_t` `unsigned` ist, kann es ungefähr eine doppelt so große Zahl, wie `int` speichern. Bei möglichen Fehlern muss beachtet werden, dass `int` positiv oder negativ sein kann. `size_t` kann nicht negativ sein und fängt beim Überlauf wieder von vorne an.
+
 ## Aufgabe 2
 
 ### a)
@@ -53,18 +67,6 @@ Ein anderer Fehler könnte auftreten, wenn der Speicherbereich von `s` durch `s.
 ### c)
 
 Hier entsteht ein Fehler, da der String `test` an die Funktion `print_string` übergeben wird. Bei der Betrachtung der Signatur fällt auf, dass der Parameter mit als Wert übergeben wird (Pass-By-Value). Also wird der String `test` in die Funktion kopiert. Der Aufruf von `.print()` funktioniert normal. Sobald die `print_string` Methode abgeschlossen ist, geht der String `s` out-of-scope und der Destruktor von `string` wird ausgelöst. Dieser gibt nun den Speicher an der Adresse des Strings frei. Da in der `main`-Funktion immer noch eine Kopie des Strings existiert, kann hier auch die `.print()` Methode ausgeführt werden. Hier tritt dann das Problem auf, da der Speicher auf den, der Zeiger in der `string`-Instanz zeigt schon durch die `print_string` Methode freigegeben wurde. Somit wird auf freigegebenen Speicher zugegriffen, was undefiniertes Verhalten darstellt.
-
-### d)
-
-`unsigned integral type`
-
-Alias eines der grundlegenden Ganzzahltypen ohne Vorzeichen.
-
-Es handelt sich um einen Typ, der die Größe eines beliebigen Objekts in Bytes darstellen kann: `size_t` ist der vom `sizeof`-Operator zurückgegebene Typ und wird in der Standardbibliothek häufig zur Darstellung von Größen und Zählungen verwendet.
-
-In `<cstring>` wird er als Typ des Parameters `num` in den Funktionen `memchr`, `memcmp`, `memcpy`, `memmove`, `memset`, `strncat`, `strncmp`, `strncpy` und `strxfrm` verwendet, die in allen Fällen die maximale Anzahl von Bytes oder Zeichen angeben, die die Funktion beeinflussen soll.
-
-Er wird auch als Rückgabetyp für `strcspn`, `strlen`, `strspn` und `strxfrm` verwendet, um Größen und Längen zurückzugeben.
 
 ## Aufgabe 3
 
