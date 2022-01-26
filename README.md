@@ -25,6 +25,8 @@ Erstellte ausführbare Datei befindet sich in: `build/{Repo-Name}`.
 
 ### Markdown Doku
 
+Erstellen mit `pandoc` und Template `Eisvogel`.
+
 ```bash
-markdown-pdf -s ./markdown-pdf/css/pdf.css doku.md
+pandoc doku.md -o doku.pdf --from markdown --template eisvogel --listings
 ```
