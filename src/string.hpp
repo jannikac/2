@@ -1,9 +1,14 @@
-#ifndef STRING_HPP
-#define STRING_HPP
+#ifndef INCLUDED__MCPP__STRING_HPP
+#define INCLUDED__MCPP__STRING_HPP
+#include <cstdlib>
+#include <iostream>
+#include <stdexcept>
+#include <string.h>
 
 class string {
 private:
   char *str;
+  int length;
 
 public:
   string();

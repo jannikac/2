@@ -1,13 +1,11 @@
 #include "string.hpp"
-#include <cstdlib>
-#include <iostream>
-#include <stdexcept>
-#include <string.h>
+#include <cstring>
+
+const int NOT_FOUND = -1;
 
 // Erstellt eine `string`-Instanz mit der Zeichenfolge ""
-string::string() {
+string::string() : str((char *)malloc(sizeof(char))), length(0) {
   // Weist Heap-Speicher mit der Größe von einem char zu
-  str = (char *)malloc(sizeof(char));
 }
 
 // Erstellt eine `string` Instanz aus einem Zeiger auf ein `char` Array.
@@ -17,8 +15,10 @@ string::string(const char *inputString) {
   if (!inputString)
     throw std::invalid_argument("recieved nullptr");
 
+  length = strlen(inputString);
+
   // größe für internen str festlegen
-  str = (char *)malloc(sizeof(char) * strlen(inputString));
+  str = (char *)malloc(sizeof(char) * length);
 
   // c-string von der Eingabe in den internen str kopieren
   strcpy(str, inputString);
@@ -32,10 +32,13 @@ void string::append(const char *inputString) {
     throw std::invalid_argument("recieved nullptr");
 
   // Größe des internen str um Länge des inputStrings erweitern
-  str =
-      (char *)realloc(str, sizeof(char) * (strlen(inputString) + strlen(str)));
+  str = (char *)realloc(str, sizeof(char) * (strlen(inputString) + length));
+
   // inputString an bestehenden str anhängen
   strcat(str, inputString);
+
+  // Länge aktualisieren
+  length = strlen(str);
 }
 
 // Gibt den internen `str` zurück.
@@ -51,7 +54,7 @@ int string::find(char c) {
   char *res = strchr(str, c);
   // Wenn res nullptr zurückgibt, wurde kein char gefunden, also -1 als index
   if (!res)
-    return -1;
+    return NOT_FOUND;
 
   // Wenn res keinen nullptr zurückgibt, wurde char gefunden
   // Adresse des gefundenen Zeigers - Adresse des Strings = Index
@@ -66,7 +69,7 @@ void string::print() { std::cout << str << std::endl; }
 // dieser mit `string::append` wiederverwendet werden kann.
 void string::clear() {
   // str mit 0 füllen.
-  memset(str, 0, strlen(str));
+  memset(str, 0, length);
   // Größe zurücksetzen
   str = (char *)realloc(str, sizeof(char));
 }
