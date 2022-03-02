@@ -18,6 +18,8 @@ public:
   // Move Konstruktor
   string(string &&other);
   void append(const char *inputString);
+  // Verkettet 2 Strings miteinander
+  string operator+(const string &other);
   char *data();
   const char *data() const;
   int find(char c) const;

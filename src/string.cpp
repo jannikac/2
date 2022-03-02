@@ -57,6 +57,13 @@ void string::append(const char *inputString) {
   length = strlen(str);
 }
 
+// Verkettet 2 strings miteinander und gibt einen neuen string zurück
+string string::operator+(const string &other) {
+  string result = string(str);
+  result.append(other.str);
+  return result;
+};
+
 // Gibt den internen `str` zurück.
 // Kann keinen `nullptr` zurückgeben, da bei eingabe eines `nullptrs` eine
 // Exception geworfen wird.
