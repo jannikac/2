@@ -1,5 +1,6 @@
 #include "string.hpp"
 #include <cstring>
+#include <stdexcept>
 
 const int NOT_FOUND = -1;
 
@@ -62,6 +63,26 @@ string string::operator+(const string &other) {
   string result = string(str);
   result.append(other.str);
   return result;
+};
+
+// Kann nur für lesenden Zugriff genutzt werden -> rvalue
+const char &string::operator[](const int index) const { return str[index]; };
+
+const char &string::at(const int index) const {
+  // Werfen, wenn index out of range
+  if (index >= length)
+    throw std::out_of_range("index is greater or equals to length");
+  return str[index];
+};
+
+// Kann für schreibenden Zugriff genutzt werden -> lvalue
+char &string::operator[](const int index) { return str[index]; };
+
+char &string::at(const int index) {
+  // Werfen, wenn index out of range
+  if (index >= length)
+    throw std::out_of_range("index is greater or equals to length");
+  return str[index];
 };
 
 // Gibt den internen `str` zurück.

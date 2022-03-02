@@ -20,6 +20,12 @@ public:
   void append(const char *inputString);
   // Verkettet 2 Strings miteinander
   string operator+(const string &other);
+  // lvalue -> schreibend
+  char &operator[](const int index);
+  char &at(const int index);
+  // rvalue -> lesend
+  const char &operator[](const int index) const;
+  const char &at(const int index) const;
   char *data();
   const char *data() const;
   int find(char c) const;
