@@ -24,6 +24,22 @@ string::string(const char *inputString) {
   strcpy(str, inputString);
 }
 
+// Copy Konstruktor.
+string::string(const string &other) {
+  str = (char *)malloc(sizeof(char) * other.length);
+  strcpy(str, other.str);
+  length = other.length;
+}
+
+// Move Konstruktor.
+string::string(string &&other) {
+  str = (char *)malloc(sizeof(char) * other.length);
+  str = other.str;
+  length = other.length;
+
+  other.str = nullptr;
+}
+
 // Fügt ein `char` Array an einen den internen `str` an.
 void string::append(const char *inputString) {
   // inputString auf nullptr überprüfen, damit strlen() keinen segfault erzeugt.

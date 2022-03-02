@@ -13,6 +13,10 @@ private:
 public:
   string();
   string(const char *inputString);
+  // Copy Konstruktor
+  string(const string &other);
+  // Move Konstruktor
+  string(string &&other);
   void append(const char *inputString);
   char *data();
   int find(char c);
