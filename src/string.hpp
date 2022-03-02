@@ -19,6 +19,7 @@ public:
   string(string &&other);
   void append(const char *inputString);
   char *data();
+  const char *data() const;
   int find(char c) const;
   void print() const;
   void clear();

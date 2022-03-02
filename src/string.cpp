@@ -62,6 +62,8 @@ void string::append(const char *inputString) {
 // Exception geworfen wird.
 char *string::data() { return str; }
 
+const char *string::data() const { return str; }
+
 // Findet den ersten `char` im internen `str`, welcher mit `c` übereinstimmt und
 // gibt den entsprechenden Index zurück. Wird char nicht gefunden, wird `-1`
 // zurück gegeben.
