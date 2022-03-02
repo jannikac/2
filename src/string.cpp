@@ -65,7 +65,7 @@ char *string::data() { return str; }
 // Findet den ersten `char` im internen `str`, welcher mit `c` übereinstimmt und
 // gibt den entsprechenden Index zurück. Wird char nicht gefunden, wird `-1`
 // zurück gegeben.
-int string::find(char c) {
+int string::find(char c) const {
   // Gibt Zeiger auf gefundenen char zurück und speichert ihn als res
   char *res = strchr(str, c);
   // Wenn res nullptr zurückgibt, wurde kein char gefunden, also -1 als index
@@ -79,7 +79,7 @@ int string::find(char c) {
 }
 
 // Interner `str` wird mit `std::cout` ausgegeben.
-void string::print() { std::cout << str << std::endl; }
+void string::print() const { std::cout << str << std::endl; }
 
 // `str` wird mit 0 gefüllt und dann auf die Länge 1 zurückgesetzt, damit
 // dieser mit `string::append` wiederverwendet werden kann.
