@@ -1,4 +1,5 @@
 #include "string.hpp"
+#include "c_exception.cpp"
 #include <cstring>
 #include <stdexcept>
 
@@ -7,6 +8,11 @@ const int NOT_FOUND = -1;
 // Erstellt eine `string`-Instanz mit der Zeichenfolge ""
 string::string() : str((char *)malloc(sizeof(char))), length(0) {
   // Weist Heap-Speicher mit der Größe von einem char zu
+  // werfen, wenn malloc fehlschlägt
+  if (str == NULL) {
+    throw my_exception_class("Fehler bei der Speicherzuweisung", __FILE__,
+                             __LINE__);
+  }
 }
 
 // Erstellt eine `string` Instanz aus einem Zeiger auf ein `char` Array.
@@ -21,6 +27,12 @@ string::string(const char *inputString) {
   // größe für internen str festlegen
   str = (char *)malloc(sizeof(char) * length);
 
+  // exception werfen wenn malloc fehlschlägt
+  if (str == NULL) {
+    throw my_exception_class("Fehler bei der Speicherzuweisung", __FILE__,
+                             __LINE__);
+  }
+
   // c-string von der Eingabe in den internen str kopieren
   strcpy(str, inputString);
 }
@@ -28,6 +40,11 @@ string::string(const char *inputString) {
 // Copy Konstruktor.
 string::string(const string &other) {
   str = (char *)malloc(sizeof(char) * other.length);
+  // werfen falls malloc fehlschlägy
+  if (str == NULL) {
+    throw my_exception_class("Fehler bei der Speicherzuweisung", __FILE__,
+                             __LINE__);
+  }
   strcpy(str, other.str);
   length = other.length;
 }
@@ -35,6 +52,13 @@ string::string(const string &other) {
 // Move Konstruktor.
 string::string(string &&other) {
   str = (char *)malloc(sizeof(char) * other.length);
+
+  // werfen falls malloc fehlschlägy
+  if (str == NULL) {
+    throw my_exception_class("Fehler bei der Speicherzuweisung", __FILE__,
+                             __LINE__);
+  }
+
   str = other.str;
   length = other.length;
 
@@ -50,6 +74,11 @@ void string::append(const char *inputString) {
 
   // Größe des internen str um Länge des inputStrings erweitern
   str = (char *)realloc(str, sizeof(char) * (strlen(inputString) + length));
+  // werfen falls realloc fehlschlägy
+  if (str == NULL) {
+    throw my_exception_class("Fehler bei der Speicherzuweisung", __FILE__,
+                             __LINE__);
+  }
 
   // inputString an bestehenden str anhängen
   strcat(str, inputString);
@@ -118,6 +147,11 @@ void string::clear() {
   memset(str, 0, length);
   // Größe zurücksetzen
   str = (char *)realloc(str, sizeof(char));
+  // werfen falls malloc fehlschlägy
+  if (str == NULL) {
+    throw my_exception_class("Fehler bei der Speicherzuweisung", __FILE__,
+                             __LINE__);
+  }
 }
 
 // Destruktor
